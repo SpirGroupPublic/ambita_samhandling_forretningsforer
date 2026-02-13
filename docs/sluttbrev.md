@@ -30,6 +30,7 @@ class finalRes response;
 {
   "type": "sluttbrev",
   "ordreId": "30db5678-345f-4dh4-92e5-09d2dh82dase",
+  "estateId": "8227867c-7cee-45dd-b7dd-63d2f93bce23",
   "oppdragsnummer": "8-0148/23",
   "registerenhet": {
     "type": "matrikkel",
