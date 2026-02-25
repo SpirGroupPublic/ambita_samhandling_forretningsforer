@@ -26,6 +26,9 @@ The following error codes are defined in `callbackTypes.ts` and can be used in t
 | 34 | sakstypeForKlientIkkeFunnet | Case type for client not found | The case type for the specific client was not found |
 | 35 | endringOverdragelseIKunngjoringsperioden | Transfer date change during announcement period not allowed | Cannot change transfer date during the announcement period |
 | 39 | salgsmeldingKanIkkeLeveresDigital | Sales notification cannot be delivered digitally | Active manual pre-listing exists. Contact property manager! |
+| 41 | eierskiftesakIkkeFunnet | Sales notification not found | Cannot handle sluttbrev when sales notification is not found|
+| 42 | eierskifteIkkeFullfort | Change of ownership not completed | Cannot handle sluttbrev when change of ownership is not completed |
+| 43 | forkjopsrettIkkeAvklart | Pre-emption right not clarified | Cannot handle sluttbrev when pre-emption right is not clarified |
 | 99 | midlertidigFeil | Temporary error, retry later | Property manager experienced a temporary error and requests retry |
 
 ## Error fields

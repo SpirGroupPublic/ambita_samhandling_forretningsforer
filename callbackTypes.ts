@@ -27,6 +27,9 @@ export enum Feilkode {
   sakstypeForKlientIkkeFunnet = 34, // sakstype for klient ikke funnet
   endringOverdragelseIKunngjoringsperioden = 35, // Endring av overdragelse i kunngjøringsperioden er ikke tillatt
   salgsmeldingKanIkkeLeveresDigital = 39, // Aktiv manuell forhåndsutlysing finnes. Kontakt forretningsfører!
+  eierskiftesakIkkeFunnet = 41, // Eierskiftesaken ble ikke funnet.
+  eierskifteIkkeFullfort = 42, // Eierskifte er ikke fullført.
+  forkjopsrettIkkeAvklart = 43, // Forkjopsrett er ikke avklart
   midlertidigFeil = 99 // Forretningsfører opplevde en midlertidig feil og ber om at det prøves igjen
 }
 
