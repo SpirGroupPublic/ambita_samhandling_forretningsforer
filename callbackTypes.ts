@@ -11,7 +11,7 @@ export enum BestillingsFormat {
   ELEKTRONISK = 'Elektronisk'
 }
 
-export type BestillingsmottakerType = 'forretningsforer' | 'lag'
+export type BestillingsmottakerType = "forretningsforer" | "lag" | "eksternforretningsforer";
 
 export enum Feilkode {
   forhandsutlysingAlleredeOpprettet = 1,
