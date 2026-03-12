@@ -38,7 +38,12 @@ namespace Samhandling.Client.Model
         /// <summary>
         /// Enum Lag for value: lag
         /// </summary>
-        Lag = 2
+        Lag = 2,
+
+        /// <summary>
+        /// Enum Eksternforretningsforer for value: eksternforretningsforer
+        /// </summary>
+        Eksternforretningsforer = 3
     }
 
     /// <summary>
@@ -59,6 +64,9 @@ namespace Samhandling.Client.Model
             if (value.Equals("lag"))
                 return BestillingsmottakerType.Lag;
 
+            if (value.Equals("eksternforretningsforer"))
+                return BestillingsmottakerType.Eksternforretningsforer;
+
             throw new NotImplementedException($"Could not convert value to type BestillingsmottakerType: '{value}'");
         }
 
@@ -74,6 +82,9 @@ namespace Samhandling.Client.Model
 
             if (value.Equals("lag"))
                 return BestillingsmottakerType.Lag;
+
+            if (value.Equals("eksternforretningsforer"))
+                return BestillingsmottakerType.Eksternforretningsforer;
 
             return null;
         }
@@ -91,6 +102,9 @@ namespace Samhandling.Client.Model
 
             if (value == BestillingsmottakerType.Lag)
                 return "lag";
+
+            if (value == BestillingsmottakerType.Eksternforretningsforer)
+                return "eksternforretningsforer";
 
             throw new NotImplementedException($"Value could not be handled: '{value}'");
         }

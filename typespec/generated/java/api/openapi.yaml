@@ -260,6 +260,7 @@ components:
       enum:
       - forretningsforer
       - lag
+      - eksternforretningsforer
       type: string
     Bolig:
       example:

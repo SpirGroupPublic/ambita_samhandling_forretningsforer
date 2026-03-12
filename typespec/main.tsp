@@ -28,7 +28,8 @@ enum BestillingsFormat {
 
 enum BestillingsmottakerType {
   forretningsforer: "forretningsforer",
-  lag: "lag"
+  lag: "lag",
+  eksternforretningsforer: "eksternforretningsforer"
 }
 
 enum Feilkode {

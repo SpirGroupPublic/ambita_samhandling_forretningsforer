@@ -9,5 +9,7 @@
 
 * `LAG` (value: `"lag"`)
 
+* `EKSTERNFORRETNINGSFORER` (value: `"eksternforretningsforer"`)
+
 
 

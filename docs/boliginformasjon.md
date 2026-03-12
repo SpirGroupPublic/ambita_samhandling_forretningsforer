@@ -163,7 +163,7 @@ General comment. For each step in the process, we have a field called "bestillin
   * kanForhandsutlyses (supports advance notice) - true if right of first refusal can be ordered in advance  
   * intern (internal) - true if right is only available inside the cooperative
   * bestillingsformat (order format) - Elektronisk (Electronic) or Manuelt (Manually).
-  * mottakerType (recipient type) - if bestillingsformat is "Manuelt" then mottakerType is either "forretningsforer" (accountant) or "lag" (client)
+  * mottakerType (recipient type) - if bestillingsformat is "Manuelt" then mottakerType is either "forretningsforer" (accountant), "lag" (client) or "eksternforretningsforer" (external accountant - a different accountant than the one answering the boliginformasjon)
   * gebyr (fee) - The price of the right of first refusal clarification
 * styregodkjenning (board approval)
   * pakrevd (required) - need board approval before moving into object
@@ -375,7 +375,7 @@ Generell merknad: hvert steg i prosessen har feltet `bestillingsformat` med verd
   * kanForhandsutlyses – sann dersom forkjøpsretten kan forhåndsutlyses
   * intern – sann dersom forkjøpsretten kun gjelder internt i laget
   * bestillingsformat – Elektronisk eller Manuelt
-  * mottakerType – dersom bestillingsformat er "Manuelt" angis "forretningsforer" eller "lag"
+  * mottakerType – dersom bestillingsformat er "Manuelt" angis "forretningsforer", "lag" eller "eksternforretningsforer" (en annen forretningsfører enn den som besvarer boliginformasjonen)
   * gebyr – pris for forkjøpsrettsavklaringen
 * styregodkjenning – status for styregodkjenning
   * pakrevd – om styregodkjenning er påkrevd før innflytting

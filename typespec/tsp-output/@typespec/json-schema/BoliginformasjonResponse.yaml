@@ -73,6 +73,7 @@ $defs:
     enum:
       - forretningsforer
       - lag
+      - eksternforretningsforer
   BasicResponse:
     type: object
     properties:

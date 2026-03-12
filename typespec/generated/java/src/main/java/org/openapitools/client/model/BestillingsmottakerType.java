@@ -32,7 +32,9 @@ public enum BestillingsmottakerType {
   
   FORRETNINGSFORER("forretningsforer"),
   
-  LAG("lag");
+  LAG("lag"),
+  
+  EKSTERNFORRETNINGSFORER("eksternforretningsforer");
 
   private String value;
 

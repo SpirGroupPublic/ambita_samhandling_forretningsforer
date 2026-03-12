@@ -19,7 +19,8 @@
  */
 export const BestillingsmottakerType = {
     Forretningsforer: 'forretningsforer',
-    Lag: 'lag'
+    Lag: 'lag',
+    Eksternforretningsforer: 'eksternforretningsforer'
 } as const;
 export type BestillingsmottakerType = typeof BestillingsmottakerType[keyof typeof BestillingsmottakerType];
 
