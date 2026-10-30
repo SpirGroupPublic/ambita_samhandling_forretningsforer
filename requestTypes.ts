@@ -131,6 +131,7 @@ export interface Salgsmelding extends BasicProduct {
   finnkode?: string
   salg: Salg
   bolig: Bolig
+  tilleggsobjekt?: string
 }
 
 /**

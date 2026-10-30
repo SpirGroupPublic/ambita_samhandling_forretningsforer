@@ -151,6 +151,8 @@ model SalgsmeldingOrdre extends BasicProduct {
   finnkode?: string;
   salg: Salg;
   bolig: Bolig;
+  @maxLength(4000)
+  tilleggsobjekt?: string;
 }
 
 /**

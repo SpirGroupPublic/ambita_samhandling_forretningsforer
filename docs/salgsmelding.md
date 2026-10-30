@@ -132,7 +132,8 @@ An example json request can look like this:
       "poststed": "Bergen"
     },
     "leilighetsnummer": "H0101"
-  }
+  },
+  "tilleggsobjekt": "Garasjeseksjon nr. 14 i samme sameie følger med i salget."
 }
 ```
 
@@ -265,7 +266,8 @@ Et eksempel på forespørselen:
       "poststed": "Bergen"
     },
     "leilighetsnummer": "H0101"
-  }
+  },
+  "tilleggsobjekt": "Garasjeseksjon nr. 14 i samme sameie følger med i salget."
 }
 ```
 
@@ -301,6 +303,7 @@ Felles felter er beskrevet under [boliginformasjon](boliginformasjon.md#request-
   * parkering, oppvarming – fritekstfelter
   * adresse – objektets adresse
   * leilighetsnummer – seksjonsnummer/bolignummer
+* tilleggsobjekt – valgfri fritekst (maks 4000 tegn) som beskriver objekter som inngår i salget i tillegg til boligen, for eksempel en garasjeseksjon eller parkeringsplass. Utelates når salget ikke omfatter noe tilleggsobjekt.
 
 ## Mottatt salgsmelding
 
@@ -587,6 +590,7 @@ For common request fields see [boliginformasjon](boliginformasjon.md#request-fie
   * oppvaring (heating) - Text field about heating
   * adresse (address) - housing address
   * leilighetsnummer (apartment number)
+* tilleggsobjekt (additional object) - Optional free text (max 4000 characters) describing objects included in the sale in addition to the housing unit, e.g. a garage section or parking space. Omitted when the sale includes no additional object.
 
 ## Sales message received response
 

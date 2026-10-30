@@ -35,6 +35,9 @@ properties:
     $ref: "#/$defs/Salg"
   bolig:
     $ref: "#/$defs/Bolig"
+  tilleggsobjekt:
+    type: string
+    maxLength: 4000
 required:
   - type
   - kjopere

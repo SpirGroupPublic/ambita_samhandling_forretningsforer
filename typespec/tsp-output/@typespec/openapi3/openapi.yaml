@@ -982,6 +982,9 @@ components:
           $ref: '#/components/schemas/Salg'
         bolig:
           $ref: '#/components/schemas/Bolig'
+        tilleggsobjekt:
+          type: string
+          maxLength: 4000
       allOf:
         - $ref: '#/components/schemas/BasicProduct'
       description: |-
