@@ -1,7 +1,7 @@
 title: "Ambita Samhandling Forretningsfører"
 description: "API Documentation for cooperation between brokers and accountants"
-baseurl: "/ambita_samhandling_forretningsforer" # Replace with your actual repo name
-url: "https://ambita.github.io" # Replace with your GitHub username/org
+baseurl: "/ambita_samhandling_forretningsforer"
+url: "https://spirgrouppublic.github.io"
 
 # Build settings
 markdown: kramdown
