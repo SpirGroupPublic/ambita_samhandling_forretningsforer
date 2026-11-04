@@ -192,11 +192,13 @@ model SluttbrevOrdre extends BasicProduct {
 
 /**
  * Restanse
- * Order and handle arrears - not yet designed
+ * Request outstanding arrears from the accountant, sent on the transfer date or ordered manually
  */
 @jsonSchema
 model RestanseOrdre extends BasicProduct {
   type: "restanse";
+  salgsmeldingOrdreId: string;
+  datoOverdragelse: ISODateTime;
 }
 
 /**
@@ -222,7 +224,7 @@ alias CallbackTypes = "boliginformasjon" | "forhandsutlysingtidlig" | "forhandsu
   | "forhandsutlysingsen" | "forhandsutlysingutlopt" | "salgsmeldingmottatt" 
   | "salgsmeldingoppdatering" | "salgsmeldingfullfort" | "endringoverdragelse"
   | "endringkjoperemottatt" | "endringkjoperefullfort" | "sluttbrevakseptert"
-  | "sumgjeld" | "sumfelleskostnader" | "feil";
+  | "sumgjeld" | "sumfelleskostnader" | "restanseresultat" | "feil";
 
 model Adresse {
   gateadresse: string;
@@ -512,6 +514,77 @@ model SumFelleskostnaderSvar extends BasicResponse {
   sumFelleskostnader: integer;
 }
 
+alias Kravtype = "hjemmelskrav" | "annet";
+
+model Restansepost {
+  kravtype: Kravtype;
+  fakturanummer: string;
+  kid?: string;
+  fakturadato: ISODate;
+  forfallsdato: ISODate;
+  periodeFra: ISODate;
+  periodeTil: ISODate;
+  kategori?: string;
+  beskrivelse?: string;
+  nettobelop: decimal;
+  mvaBelop: decimal;
+  utestaende: decimal;
+  forfalt: boolean;
+}
+
+model Betalingsinformasjon {
+  totalsum: decimal;
+  sumHjemmelskrav: decimal;
+  sumAndreKrav: decimal;
+  kontonummer: string;
+  kid?: string;
+  forfallsdato: ISODate;
+}
+
+model Inkassosak {
+  saksnummer: string;
+  belop?: decimal;
+  inkassoselskap: {
+    navn: string;
+    telefon?: string;
+    epost?: string;
+  };
+}
+
+model Gebyr {
+  gebyrtype: "forhandsutlysingsgebyr" | "eierskiftegebyr" | "administrasjonsgebyr" | "noteringsgebyr" | "transportgebyr";
+  beskrivelse?: string;
+  fakturanummer: string;
+  kid?: string;
+  forfallsdato: ISODate;
+  nettobelop: decimal;
+  mvaBelop: decimal;
+  utestaende: decimal;
+}
+
+/**
+ * RestanseResultat
+ * required - returns outstanding arrears, payment information and debt collection cases
+ */
+@jsonSchema
+model RestanseResultat extends BasicResponse {
+  type: "restanseresultat";
+  beregnetDato: ISODate;
+  merknad?: string;
+  restanserBoligselskap: {
+    felleskostnader: Restansepost[];
+    andreKostnader: Restansepost[];
+    betalingsinformasjon: Betalingsinformasjon;
+  };
+  inkasso?: {
+    saker: Inkassosak[];
+  };
+  restanserForretningsforer?: {
+    gebyrer: Gebyr[];
+    betalingsinformasjon: Betalingsinformasjon;
+  };
+}
+
 union CallbackEvent {
   BoliginformasjonResponse,
   Feil,
@@ -527,7 +600,8 @@ union CallbackEvent {
   EndringKjopereFullfort,
   SluttbrevAkseptert,
   SumGjeldSvar,
-  SumFelleskostnaderSvar
+  SumFelleskostnaderSvar,
+  RestanseResultat
 }
 
 model GenericResponse {

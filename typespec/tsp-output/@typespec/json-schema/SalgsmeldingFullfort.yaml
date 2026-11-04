@@ -128,6 +128,8 @@ $defs:
           - type: string
             const: sumfelleskostnader
           - type: string
+            const: restanseresultat
+          - type: string
             const: feil
       ordreId:
         type: string

@@ -276,6 +276,81 @@ export interface SumFelleskostnaderSvar extends Callback {
   sumFelleskostnader: number
 }
 
+export type Kravtype = 'hjemmelskrav' | 'annet'
+
+export interface Restansepost {
+  kravtype: Kravtype
+  fakturanummer: string
+  kid?: string
+  fakturadato: ISODate
+  forfallsdato: ISODate
+  periodeFra: ISODate
+  periodeTil: ISODate
+  kategori?: string
+  beskrivelse?: string
+  nettobelop: number
+  mvaBelop: number
+  utestaende: number
+  forfalt: boolean
+}
+
+export interface Betalingsinformasjon {
+  totalsum: number
+  sumHjemmelskrav: number
+  sumAndreKrav: number
+  kontonummer: string
+  kid?: string // NY: KID for samlet innbetaling
+  forfallsdato: ISODate // NY: forfall for samlet innbetaling
+}
+
+export interface Inkassosak {
+  saksnummer: string
+  belop?: number
+  inkassoselskap: {
+    navn: string
+    telefon?: string
+    epost?: string
+  }
+}
+
+export interface Gebyr {
+  gebyrtype:
+    | 'forhandsutlysingsgebyr'
+    | 'eierskiftegebyr'
+    | 'administrasjonsgebyr'
+    | 'noteringsgebyr'
+    | 'transportgebyr'
+  beskrivelse?: string
+  fakturanummer: string
+  kid?: string
+  forfallsdato: ISODate // NY
+  nettobelop: number
+  mvaBelop: number
+  utestaende: number
+}
+
+/**
+ * RestanseResultat
+ * required - returns outstanding arrears, payment information and debt collection cases
+ */
+export interface RestanseResultat extends Callback {
+  type: 'restanseresultat'
+  beregnetDato: ISODate
+  merknad?: string
+  restanserBoligselskap: {
+    felleskostnader: Restansepost[]
+    andreKostnader: Restansepost[]
+    betalingsinformasjon: Betalingsinformasjon
+  }
+  inkasso?: {
+    saker: Inkassosak[]
+  }
+  restanserForretningsforer?: {
+    gebyrer: Gebyr[]
+    betalingsinformasjon: Betalingsinformasjon
+  }
+}
+
 /**
  * Types for Megleropplysninger callback data from accountants
  *
@@ -576,4 +651,5 @@ export type CallbackEvent =
   | SluttbrevAkseptert
   | SumGjeldSvar
   | SumFelleskostnaderSvar
+  | RestanseResultat
   | MegleropplysningerSvar

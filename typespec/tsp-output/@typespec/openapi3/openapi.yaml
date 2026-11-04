@@ -197,6 +197,7 @@ components:
             - sluttbrevakseptert
             - sumgjeld
             - sumfelleskostnader
+            - restanseresultat
             - feil
         ordreId:
           type: string
@@ -239,6 +240,30 @@ components:
         - forretningsforer
         - lag
         - eksternforretningsforer
+    Betalingsinformasjon:
+      type: object
+      required:
+        - totalsum
+        - sumHjemmelskrav
+        - sumAndreKrav
+        - kontonummer
+        - forfallsdato
+      properties:
+        totalsum:
+          type: number
+          format: decimal
+        sumHjemmelskrav:
+          type: number
+          format: decimal
+        sumAndreKrav:
+          type: number
+          format: decimal
+        kontonummer:
+          type: string
+        kid:
+          type: string
+        forfallsdato:
+          $ref: '#/components/schemas/ISODate'
     Bolig:
       type: object
       properties:
@@ -375,6 +400,7 @@ components:
         - $ref: '#/components/schemas/SluttbrevAkseptert'
         - $ref: '#/components/schemas/SumGjeldSvar'
         - $ref: '#/components/schemas/SumFelleskostnaderSvar'
+        - $ref: '#/components/schemas/RestanseResultat'
     Eierbrok:
       type: object
       required:
@@ -677,12 +703,69 @@ components:
           type: string
         epostRestanse:
           type: string
+    Gebyr:
+      type: object
+      required:
+        - gebyrtype
+        - fakturanummer
+        - forfallsdato
+        - nettobelop
+        - mvaBelop
+        - utestaende
+      properties:
+        gebyrtype:
+          type: string
+          enum:
+            - forhandsutlysingsgebyr
+            - eierskiftegebyr
+            - administrasjonsgebyr
+            - noteringsgebyr
+            - transportgebyr
+        beskrivelse:
+          type: string
+        fakturanummer:
+          type: string
+        kid:
+          type: string
+        forfallsdato:
+          $ref: '#/components/schemas/ISODate'
+        nettobelop:
+          type: number
+          format: decimal
+        mvaBelop:
+          type: number
+          format: decimal
+        utestaende:
+          type: number
+          format: decimal
     ISODate:
       type: string
       pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}$
     ISODateTime:
       type: string
       pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(Z|[+-][0-9]{2}:[0-9]{2})$
+    Inkassosak:
+      type: object
+      required:
+        - saksnummer
+        - inkassoselskap
+      properties:
+        saksnummer:
+          type: string
+        belop:
+          type: number
+          format: decimal
+        inkassoselskap:
+          type: object
+          properties:
+            navn:
+              type: string
+            telefon:
+              type: string
+            epost:
+              type: string
+          required:
+            - navn
     Klient:
       type: object
       required:
@@ -779,16 +862,126 @@ components:
       type: object
       required:
         - type
+        - salgsmeldingOrdreId
+        - datoOverdragelse
       properties:
         type:
           type: string
           enum:
             - restanse
+        salgsmeldingOrdreId:
+          type: string
+        datoOverdragelse:
+          $ref: '#/components/schemas/ISODateTime'
       allOf:
         - $ref: '#/components/schemas/BasicProduct'
       description: |-
         Restanse
-        Order and handle arrears - not yet designed
+        Request outstanding arrears from the accountant, sent on the transfer date or ordered manually
+    RestanseResultat:
+      type: object
+      required:
+        - type
+        - beregnetDato
+        - restanserBoligselskap
+      properties:
+        type:
+          type: string
+          enum:
+            - restanseresultat
+        beregnetDato:
+          $ref: '#/components/schemas/ISODate'
+        merknad:
+          type: string
+        restanserBoligselskap:
+          type: object
+          properties:
+            felleskostnader:
+              type: array
+              items:
+                $ref: '#/components/schemas/Restansepost'
+            andreKostnader:
+              type: array
+              items:
+                $ref: '#/components/schemas/Restansepost'
+            betalingsinformasjon:
+              $ref: '#/components/schemas/Betalingsinformasjon'
+          required:
+            - felleskostnader
+            - andreKostnader
+            - betalingsinformasjon
+        inkasso:
+          type: object
+          properties:
+            saker:
+              type: array
+              items:
+                $ref: '#/components/schemas/Inkassosak'
+          required:
+            - saker
+        restanserForretningsforer:
+          type: object
+          properties:
+            gebyrer:
+              type: array
+              items:
+                $ref: '#/components/schemas/Gebyr'
+            betalingsinformasjon:
+              $ref: '#/components/schemas/Betalingsinformasjon'
+          required:
+            - gebyrer
+            - betalingsinformasjon
+      allOf:
+        - $ref: '#/components/schemas/BasicResponse'
+      description: |-
+        RestanseResultat
+        required - returns outstanding arrears, payment information and debt collection cases
+    Restansepost:
+      type: object
+      required:
+        - kravtype
+        - fakturanummer
+        - fakturadato
+        - forfallsdato
+        - periodeFra
+        - periodeTil
+        - nettobelop
+        - mvaBelop
+        - utestaende
+        - forfalt
+      properties:
+        kravtype:
+          type: string
+          enum:
+            - hjemmelskrav
+            - annet
+        fakturanummer:
+          type: string
+        kid:
+          type: string
+        fakturadato:
+          $ref: '#/components/schemas/ISODate'
+        forfallsdato:
+          $ref: '#/components/schemas/ISODate'
+        periodeFra:
+          $ref: '#/components/schemas/ISODate'
+        periodeTil:
+          $ref: '#/components/schemas/ISODate'
+        kategori:
+          type: string
+        beskrivelse:
+          type: string
+        nettobelop:
+          type: number
+          format: decimal
+        mvaBelop:
+          type: number
+          format: decimal
+        utestaende:
+          type: number
+          format: decimal
+        forfalt:
+          type: boolean
     Salg:
       type: object
       required:

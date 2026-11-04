@@ -168,10 +168,12 @@ export interface Sluttbrev extends BasicProduct {
 
 /**
  * Restanse
- * Order and handle arrears - not yet designed
+ * Request outstanding arrears from the accountant, sent on the transfer date or ordered manually
  */
 export interface Restanse extends BasicProduct {
   type: 'restanse'
+  salgsmeldingOrdreId: string
+  datoOverdragelse: ISODateTime
 }
 
 /**

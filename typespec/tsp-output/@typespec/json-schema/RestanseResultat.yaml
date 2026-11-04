@@ -1,0 +1,304 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: RestanseResultat.yaml
+type: object
+properties:
+  type:
+    type: string
+    const: restanseresultat
+  beregnetDato:
+    $ref: "#/$defs/ISODate"
+  merknad:
+    type: string
+  restanserBoligselskap:
+    type: object
+    properties:
+      felleskostnader:
+        type: array
+        items:
+          $ref: "#/$defs/Restansepost"
+      andreKostnader:
+        type: array
+        items:
+          $ref: "#/$defs/Restansepost"
+      betalingsinformasjon:
+        $ref: "#/$defs/Betalingsinformasjon"
+    required:
+      - felleskostnader
+      - andreKostnader
+      - betalingsinformasjon
+  inkasso:
+    type: object
+    properties:
+      saker:
+        type: array
+        items:
+          $ref: "#/$defs/Inkassosak"
+    required:
+      - saker
+  restanserForretningsforer:
+    type: object
+    properties:
+      gebyrer:
+        type: array
+        items:
+          $ref: "#/$defs/Gebyr"
+      betalingsinformasjon:
+        $ref: "#/$defs/Betalingsinformasjon"
+    required:
+      - gebyrer
+      - betalingsinformasjon
+required:
+  - type
+  - beregnetDato
+  - restanserBoligselskap
+allOf:
+  - $ref: "#/$defs/BasicResponse"
+description: |-
+  RestanseResultat
+  required - returns outstanding arrears, payment information and debt collection cases
+$defs:
+  ISODate:
+    type: string
+    pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}$
+  Restansepost:
+    type: object
+    properties:
+      kravtype:
+        anyOf:
+          - type: string
+            const: hjemmelskrav
+          - type: string
+            const: annet
+      fakturanummer:
+        type: string
+      kid:
+        type: string
+      fakturadato:
+        $ref: "#/$defs/ISODate"
+      forfallsdato:
+        $ref: "#/$defs/ISODate"
+      periodeFra:
+        $ref: "#/$defs/ISODate"
+      periodeTil:
+        $ref: "#/$defs/ISODate"
+      kategori:
+        type: string
+      beskrivelse:
+        type: string
+      nettobelop:
+        type: string
+      mvaBelop:
+        type: string
+      utestaende:
+        type: string
+      forfalt:
+        type: boolean
+    required:
+      - kravtype
+      - fakturanummer
+      - fakturadato
+      - forfallsdato
+      - periodeFra
+      - periodeTil
+      - nettobelop
+      - mvaBelop
+      - utestaende
+      - forfalt
+  Betalingsinformasjon:
+    type: object
+    properties:
+      totalsum:
+        type: string
+      sumHjemmelskrav:
+        type: string
+      sumAndreKrav:
+        type: string
+      kontonummer:
+        type: string
+      kid:
+        type: string
+      forfallsdato:
+        $ref: "#/$defs/ISODate"
+    required:
+      - totalsum
+      - sumHjemmelskrav
+      - sumAndreKrav
+      - kontonummer
+      - forfallsdato
+  Inkassosak:
+    type: object
+    properties:
+      saksnummer:
+        type: string
+      belop:
+        type: string
+      inkassoselskap:
+        type: object
+        properties:
+          navn:
+            type: string
+          telefon:
+            type: string
+          epost:
+            type: string
+        required:
+          - navn
+    required:
+      - saksnummer
+      - inkassoselskap
+  Gebyr:
+    type: object
+    properties:
+      gebyrtype:
+        anyOf:
+          - type: string
+            const: forhandsutlysingsgebyr
+          - type: string
+            const: eierskiftegebyr
+          - type: string
+            const: administrasjonsgebyr
+          - type: string
+            const: noteringsgebyr
+          - type: string
+            const: transportgebyr
+      beskrivelse:
+        type: string
+      fakturanummer:
+        type: string
+      kid:
+        type: string
+      forfallsdato:
+        $ref: "#/$defs/ISODate"
+      nettobelop:
+        type: string
+      mvaBelop:
+        type: string
+      utestaende:
+        type: string
+    required:
+      - gebyrtype
+      - fakturanummer
+      - forfallsdato
+      - nettobelop
+      - mvaBelop
+      - utestaende
+  BasicResponse:
+    type: object
+    properties:
+      type:
+        anyOf:
+          - type: string
+            const: boliginformasjon
+          - type: string
+            const: forhandsutlysingtidlig
+          - type: string
+            const: forhandsutlysingutsatt
+          - type: string
+            const: forhandsutlysingsen
+          - type: string
+            const: forhandsutlysingutlopt
+          - type: string
+            const: salgsmeldingmottatt
+          - type: string
+            const: salgsmeldingoppdatering
+          - type: string
+            const: salgsmeldingfullfort
+          - type: string
+            const: endringoverdragelse
+          - type: string
+            const: endringkjoperemottatt
+          - type: string
+            const: endringkjoperefullfort
+          - type: string
+            const: sluttbrevakseptert
+          - type: string
+            const: sumgjeld
+          - type: string
+            const: sumfelleskostnader
+          - type: string
+            const: restanseresultat
+          - type: string
+            const: feil
+      ordreId:
+        type: string
+      forretningsforer:
+        type: object
+        properties:
+          navn:
+            type: string
+          adresse:
+            $ref: "#/$defs/Adresse"
+          epost:
+            type: string
+          epostRestanse:
+            type: string
+        required:
+          - navn
+          - adresse
+          - epost
+      klient:
+        $ref: "#/$defs/Klient"
+      levert:
+        $ref: "#/$defs/ISODateTime"
+      referanse:
+        type: string
+      eierform:
+        anyOf:
+          - type: string
+            const: Aksjonår
+          - type: string
+            const: Andelseier
+          - type: string
+            const: Sameier
+          - type: string
+            const: Seksjonseier
+    required:
+      - type
+      - ordreId
+      - forretningsforer
+  Adresse:
+    type: object
+    properties:
+      gateadresse:
+        type: string
+      postnummer:
+        type: string
+      poststed:
+        type: string
+    required:
+      - gateadresse
+      - postnummer
+      - poststed
+  Klient:
+    type: object
+    properties:
+      klienttype:
+        type: string
+      organisasjonsnavn:
+        type: string
+      organisasjonsnummer:
+        type: string
+      epost:
+        type: string
+      nettside:
+        type: string
+      styreleder:
+        $ref: "#/$defs/Styreleder"
+    required:
+      - klienttype
+      - organisasjonsnavn
+      - organisasjonsnummer
+  ISODateTime:
+    type: string
+    pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(Z|[+-][0-9]{2}:[0-9]{2})$
+  Styreleder:
+    type: object
+    properties:
+      navn:
+        type: string
+      epost:
+        type: string
+      telefonnr:
+        type: string
+    required:
+      - navn
