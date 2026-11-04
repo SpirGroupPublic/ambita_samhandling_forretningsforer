@@ -553,6 +553,10 @@ components:
         - 34
         - 35
         - 39
+        - 41
+        - 42
+        - 43
+        - 99
     ForhandsutlysingOrdre:
       type: object
       required:

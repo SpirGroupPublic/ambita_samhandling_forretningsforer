@@ -45,7 +45,11 @@ enum Feilkode {
   manuellBehandling: 33,
   sakstypeForKlientIkkeFunnet: 34,
   endringOverdragelseIKunngjoringsperioden: 35,
-  salgsmeldingKanIkkeLeveresDigital: 39
+  salgsmeldingKanIkkeLeveresDigital: 39,
+  eierskiftesakIkkeFunnet: 41,
+  eierskifteIkkeFullfort: 42,
+  forkjopsrettIkkeAvklart: 43,
+  midlertidigFeil: 99
 }
 
 // REQUEST DATA
